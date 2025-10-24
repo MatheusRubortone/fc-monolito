@@ -1,3 +1,4 @@
+import Id from "../../@shared/domain/value-object/id.value-object";
 import Invoice from "../domain/invoice";
 
 export default interface InvoiceGateway {

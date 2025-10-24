@@ -1,9 +1,8 @@
 import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
-import FindAllProductsUsecase from "../../store-catalog/usecase/find-all-products/find-all-products.usecase";
-import Address from "../../@shared/domain/value-object/address";
+import { DataType } from "sequelize-typescript";
 
 @Table({
-    tableName: "invoices",
+    tableName: 'invoices',
     timestamps: false
 })
 export class InvoiceModel extends Model {
@@ -15,9 +14,19 @@ export class InvoiceModel extends Model {
     @Column({ allowNull: false })
     document: string;
     @Column({ allowNull: false })
-    address: Address;
-    @Column({ allowNull: false, type: 'TEXT' })
-    items: string; // Stored as JSON string
+    street: string;
+    @Column({ allowNull: false })
+    number: string;
+    @Column({ allowNull: true })
+    complement: string;
+    @Column({ allowNull: false })
+    city: string;
+    @Column({ allowNull: false })
+    state: string;
+    @Column({ allowNull: false })
+    zipCode: string;
+    @Column({ type: DataType.JSON, allowNull: false})
+    items: any[];
     @Column({ allowNull: false })
     createdAt: Date;    
     @Column({ allowNull: false })

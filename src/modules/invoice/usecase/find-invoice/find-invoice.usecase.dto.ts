@@ -1,5 +1,6 @@
 import Address from "../../../@shared/domain/value-object/address";
 import InvoiceItem from "../../domain/invoice-items";
+import Id from "../../../@shared/domain/value-object/id.value-object";
 
 export interface FindInvoiceUseCaseInputDTO {
   id: string;

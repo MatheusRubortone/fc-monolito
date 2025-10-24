@@ -11,7 +11,7 @@ const MockRepository = () => {
 };
 
 describe("Generate Invoice Usecase unit tests", () => {
-    it("should generate a invoice", async () => {
+    it("should generate a invoice", async () => { 
         const Repository = MockRepository();
         const usecase = new GenerateInvoiceUseCase(Repository);
 
@@ -35,15 +35,16 @@ describe("Generate Invoice Usecase unit tests", () => {
         const result = await usecase.execute(input);
 
         expect(Repository.generate).toHaveBeenCalled();
-        expect(result.id).toBedefined();
+        expect(result.id).toBeDefined();
         expect(result.name).toEqual(input.name);
         expect(result.document).toEqual(input.document);
-        expect(result.street).toEqual(input.street);
-        expect(result.number).toEqual(input.number);
-        expect(result.complement).toEqual(input.complement);
-        expect(result.city).toEqual(input.city);
-        expect(result.state).toEqual(input.state);
-        expect(result.zipCode).toEqual(input.zipCode);
+        expect(result.address.street).toEqual(input.address.street);
+        expect(result.address.number).toEqual(input.address.number);
+        expect(result.address.complement).toEqual(input.address.complement);
+        expect(result.address.city).toEqual(input.address.city);
+        expect(result.address.state).toEqual(input.address.state);
+        expect(result.address.zipCode).toEqual(input.address.zipCode);
+        expect(result.total).toEqual(300);
         expect(result.items.length).toEqual(2);
     });
 });

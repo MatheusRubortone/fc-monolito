@@ -5,6 +5,7 @@ import Invoice from "../domain/invoice"
 import Address from "../../@shared/domain/value-object/address";
 import InvoiceItem from "../domain/invoice-items";
 import Id from "../../@shared/domain/value-object/id.value-object";
+import { InvoiceItemsModel } from "./invoice-items.model";
 
 describe("Invoice Repository test", () => {
 
@@ -19,6 +20,7 @@ describe("Invoice Repository test", () => {
         })
 
         sequelize.addModels([InvoiceModel])
+        sequelize.addModels([InvoiceItemsModel])
         await sequelize.sync()
     })
 
@@ -26,7 +28,7 @@ describe("Invoice Repository test", () => {
         await sequelize.close()
     })
 
-    it("sjould create a invoice", async () => {
+    it("should create a invoice", async () => {
         const invoice = new Invoice({
             id: new Id("1"),
             name: "Invoice 1",
@@ -56,8 +58,8 @@ describe("Invoice Repository test", () => {
         expect(invoiceDb.city).toEqual(invoice.address.city);
         expect(invoiceDb.state).toEqual(invoice.address.state);
         expect(invoiceDb.zipCode).toEqual(invoice.address.zipCode);
-        expect(invoiceDb.createdAt).toEqual(invoice.createdAt);
-        expect(invoiceDb.updatedAt).toEqual(invoice.updatedAt);
+        expect(invoiceDb.createdAt).toStrictEqual(invoice.createdAt);
+        expect(invoiceDb.updatedAt).toStrictEqual(invoice.updatedAt);
     });
 
     it("should find a invoice", async () => {
@@ -65,31 +67,29 @@ describe("Invoice Repository test", () => {
             id: "1",
             name: "Invoice 1",
             document: "12345678900",
-            address: {
-                street: "Street 1",
-                number: "123",
-                complement: "Apt 1",
-                city: "City 1",
-                state: "State 1",
-                zipCode: "12345-678"
-            },
+            street: "Street 1",
+            number: "123",
+            complement: "Apt 1",
+            city: "City 1",
+            state: "State 1",
+            zipCode: "12345-678",
             items: [],
             createdAt: new Date(),
             updatedAt: new Date()
         });
 
-        const repository = InvoiceRepository();
+        const repository = new InvoiceRepository();
         const result = await repository.find(invoice.id);
         expect(result.id.id).toEqual(invoice.id);
         expect(result.name).toEqual(invoice.name);
         expect(result.document).toEqual(invoice.document);
-        expect(result.address.street).toEqual(invoice.address.street);
-        expect(result.address.number).toEqual(invoice.address.number);
-        expect(result.address.complement).toEqual(invoice.address.complement);
-        expect(result.address.city).toEqual(invoice.address.city);
-        expect(result.address.state).toEqual(invoice.address.state);
-        expect(result.address.zipCode).toEqual(invoice.address.zipCode);
-        expect(result.createdAt).toEqual(invoice.createdAt);
-        expect(result.updatedAt).toEqual(invoice.updatedAt);
-    }
+        expect(result.address.street).toEqual(invoice.street);
+        expect(result.address.number).toEqual(invoice.number);
+        expect(result.address.complement).toEqual(invoice.complement);
+        expect(result.address.city).toEqual(invoice.city);
+        expect(result.address.state).toEqual(invoice.state);
+        expect(result.address.zipCode).toEqual(invoice.zipCode);
+        expect(result.createdAt).toStrictEqual(invoice.createdAt);
+        expect(result.updatedAt).toStrictEqual(invoice.updatedAt);
+    });
 });
