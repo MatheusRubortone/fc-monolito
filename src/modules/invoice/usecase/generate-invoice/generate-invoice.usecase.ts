@@ -35,14 +35,14 @@ export default class GenerateInvoiceUseCase{
             id: invoice.id.id,
             name: invoice.name,
             document: invoice.document,
-            address: {
-                 street: invoice.address.street,
-                 number: invoice.address.number,
-                 complement: invoice.address.complement,
-                 city: invoice.address.city,
-                 state: invoice.address.state,
-                 zipCode: invoice.address.zipCode
-            },
+            address: new Address(
+                invoice.address.street,
+                invoice.address.number,
+                invoice.address.complement,
+                invoice.address.city,
+                invoice.address.state,
+                invoice.address.zipCode
+            ),
             items: invoice.items,
             total: invoice.items.reduce((acc, item) => acc + item.price, 0)
         };

@@ -1,5 +1,5 @@
 import Address from "../../@shared/domain/value-object/address"
-import Id from "../../@shared/domain/value-object/id.value-object";
+import Invoice from "../domain/invoice";
 import InvoiceItem from "../domain/invoice-items";
 
 export interface FindInvoiceFacadeInputDTO {
@@ -21,6 +21,7 @@ export interface GenerateInvoiceInputDto {
   id?: string;
   name: string;
   document: string;
+  email?: string;
   address: Address;
   items: InvoiceItem[];
 }
