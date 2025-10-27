@@ -1,3 +1,4 @@
+import { EagerLoadingError } from 'sequelize';
 import Address from '../../../modules/@shared/domain/value-object/address';
 import { app, sequelize } from '../express';
 import request from 'supertest';
@@ -22,6 +23,22 @@ describe("E2E test for customer", () => {
                     street: "Street 1",
                     number: "123",
                     complement: "Apt 4",
+                    city: "City",
+                    state: "State",
+                    zipCode: "12345-678"
+                }
+            });
+
+            const response2 = await request(app)
+            .post("/clients")
+            .send({
+                name: "Jane Doe",
+                email: "Jane@email.com ",
+                document: "12345678901",
+                address: {
+                    street: "Street 2",
+                    number: "1234",
+                    complement: "Apt 5",
                     city: "City",
                     state: "State",
                     zipCode: "12345-678"

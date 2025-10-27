@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import ClientRepository from '../../../modules/client-adm/repository/client.repository';
 import AddClientUseCase from '../../../modules/client-adm/usecase/add-client/add-client.usecase';
+import FindClientUseCase from '../../../modules/client-adm/usecase/find-client/find-client.usecase';
 import Address from '../../../modules/@shared/domain/value-object/address';
 
 export const customerRoute = express.Router();
